@@ -4,18 +4,18 @@ using System.Text;
 
 namespace EpamFlyAbleInterface
 {
-    class Plane : IFlyable
+    class Plane // : IFlyable
     {
-        public void FlyTo()
-        {
-            Console.WriteLine("Plane >> FlyTo");
+        //public void FlyTo(uint dist)
+        //{
+        //    Console.WriteLine("Plane >> FlyTo");
 
-        }
+        //}
 
-        public void GetFlyTime()
-        {
-            Console.WriteLine("Plane >> GetFlyTime");
-        }
+        //public void GetFlyTime(uint dist)
+        //{
+        //    Console.WriteLine("Plane >> GetFlyTime");
+        //}
 
 
     }
