@@ -7,9 +7,9 @@ namespace EpamFlyAbleInterface
     interface IFlyable //интерфейс IFlyable с методами FlyTo(новая точка), GetFlyTime(новая точка)
     {
 
-        void FlyTo(uint distanceInterface);
+        void FlyTo(uint xCorInt, uint yCorInt, uint zCorInt);
 
-        void GetFlyTime(uint distanceInterface);
+        void GetFlyTime(uint xCorInt, uint yCorInt, uint zCorInt);
                 
     }
 }
