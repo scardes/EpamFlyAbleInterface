@@ -10,10 +10,12 @@ namespace EpamFlyAbleInterface
 
             Console.Write("Введите расстояние для полета в км (Координата Х): ");
             uint cordinateXGlobal = Convert.ToUInt32(Console.ReadLine());
-            Console.Write("Введите высоту полета в км (Координата Y): ");
-            uint cordinateYGlobal = Convert.ToUInt32(Console.ReadLine());
-            Console.Write("Введите отклонение в право в км (Координата Z): ");
-            uint cordinateZGlobal = Convert.ToUInt32(Console.ReadLine());
+            uint cordinateYGlobal = 0;
+            uint cordinateZGlobal = 0;
+            //Console.Write("Введите высоту полета в км (Координата Y): ");
+            //uint cordinateYGlobal = Convert.ToUInt32(Console.ReadLine());
+            //Console.Write("Введите отклонение в право в км (Координата Z): ");
+            //uint cordinateZGlobal = Convert.ToUInt32(Console.ReadLine());
 
             void FlyAction(IFlyable fly) // Обращение к интерфейсу
             {
@@ -21,14 +23,14 @@ namespace EpamFlyAbleInterface
                 fly.GetFlyTime(cordinateXGlobal, cordinateYGlobal, cordinateZGlobal); //Передаем координаты новой точки
             }
 
-            //первый этап просто сделаем скорость птицы. Вводим расстояние и получаем время в полете. 
-            //второй этап - сделаем нормальный класса с получением трех координат и добавить поля текущего положения
-
-            Bird bird = new Bird();
-            FlyAction(bird);
+            //Bird bird = new Bird();
+            //FlyAction(bird);
 
             //Plane plane = new Plane();
             //FlyAction(plane);
+
+            Drone drone = new Drone();
+            FlyAction(drone);
 
             Console.WriteLine("\nВыход из программы");
             Console.ReadLine(); // Дружественный выход

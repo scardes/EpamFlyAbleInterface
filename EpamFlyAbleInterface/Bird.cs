@@ -32,12 +32,12 @@ namespace EpamFlyAbleInterface
                     FlyUp(currentY);
                 }
 
-                if (yCorBird > currentZ) // Полет в право: Z координата. Вправо уходим со скоростью макс 2 км/ч
+                if (zCorBird > currentZ) // Полет в право: Z координата. Вправо уходим со скоростью макс 2 км/ч
                 {
                     currentZ += 2;
-                    if (currentZ > yCorBird)
+                    if (currentZ > zCorBird)
                     {
-                        currentZ = yCorBird;
+                        currentZ = zCorBird;
                     }
                 } 
 
