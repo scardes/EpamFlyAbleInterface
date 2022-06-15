@@ -6,13 +6,14 @@ namespace EpamFlyAbleInterface
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Программа по определению местоположения летящего объекта:\n");
+            Console.WriteLine("Программа по определению 3D-местоположения летящего объекта:\n");
 
             Console.Write("Введите расстояние для полета в км (Координата Х): ");
             uint cordinateXGlobal = Convert.ToUInt32(Console.ReadLine());
-            uint cordinateYGlobal = 0; // потом будет ввод с консоли
-            uint cordinateZGlobal = 0; // потом будет ввод с консоли
-
+            Console.Write("Введите высоту полета в км (Координата Y): ");
+            uint cordinateYGlobal = Convert.ToUInt32(Console.ReadLine());
+            Console.Write("Введите отклонение в право в км (Координата Z): ");
+            uint cordinateZGlobal = Convert.ToUInt32(Console.ReadLine());
 
             void FlyAction(IFlyable fly) // Обращение к интерфейсу
             {
