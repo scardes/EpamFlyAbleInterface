@@ -9,6 +9,7 @@ namespace EpamFlyAbleInterface
         uint currentX = 0; // Начальные координаты (0,0,0)
         uint currentY = 0; 
         uint currentZ = 0;
+        int hundreds = 100;
 
         private uint birdSpeed = GetRandom(); //birdSpeed - Скорость нашей птичкой
 
@@ -21,9 +22,9 @@ namespace EpamFlyAbleInterface
 
         public void FlyTo(uint xCorBird, uint yCorBird, uint zCorBird) //Получаем координаты новой точки. Куда нам следует лететь
         {
-            Console.WriteLine($" Скорость Птички {birdSpeed} км/ч, Набор высоты +1 км/ч, вправо +2 км/ч \n");
+            Console.WriteLine($"\n Вылетает Птичка. Скорость Птички {birdSpeed} км/ч, Набор высоты +1 км/ч (Максимум 8 КМ), вправо +2 км/ч \n");
 
-            while (xCorBird >= (birdSpeed + currentX)) //Каждый час отчитываемся где находимся
+            while (xCorBird > (birdSpeed + currentX)) //Каждый час отчитываемся где находимся
             {
                 currentX += birdSpeed; // Полет в длину: Х координата 
                 
@@ -39,13 +40,19 @@ namespace EpamFlyAbleInterface
                     {
                         currentZ = zCorBird;
                     }
-                } 
+                }
 
-                Console.WriteLine($"Птичка: Временные координаты X:{currentX}, Y:{currentY}, Z:{currentZ}");
-                GetFlyTime(currentX, currentY, currentZ);
+                if ((currentX) >= hundreds) //отчитываемся каждые 100 км
+                {
+                    Console.WriteLine($"Птичка: Временные координаты X:{currentX}, Y:{currentY}, Z:{currentZ}");
+                    GetFlyTime(currentX, currentY, currentZ);
+                    hundreds += 100; // Счетчик
+                }
+
             }
 
-            Console.WriteLine($"Птичка конечные координаты  X:{xCorBird}, Y:{currentY}, Z:{currentZ}"); //xCorBird - по длине всегда долетам
+            currentX = xCorBird;
+            Console.WriteLine($"Птичка: конечные координаты X:{currentX}, Y:{currentY}, Z:{currentZ}"); //xCorBird - по длине всегда долетам
         }
 
         public void GetFlyTime(uint xCorBird, uint yCorBird, uint zCorBird) // Высчитываем время полета
@@ -60,10 +67,8 @@ namespace EpamFlyAbleInterface
         {
             if (currentY >= 8)
             {
-                Console.WriteLine("Птичка выше 8 км не поднимется");
                 return currentY;
             }
-            Console.WriteLine("Птичка набирает высоту +1 км");
             return currentY++;
         }
     }

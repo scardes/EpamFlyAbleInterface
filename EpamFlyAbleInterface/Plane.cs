@@ -13,9 +13,9 @@ namespace EpamFlyAbleInterface
 
         public void FlyTo(uint xCorPlane, uint yCorPlane, uint zCorPlane)
         {
-            Console.WriteLine($" Начальная скорость самолета {planeSpeed} км/ч + 10 км/ч каждые 10 км \n");
+            Console.WriteLine($"\n Вылетает самолет. Начальная скорость самолета {planeSpeed} км/ч + 10 км/ч каждые 10 км. Максимальная скорость: 800 км/ч \n");
 
-            while (xCorPlane >= (currentX)) //Каждый 10 км отчитываемся где находимся и какая скорость самолета
+            while (xCorPlane > (currentX)) //Каждый 10 км отчитываемся где находимся и какая скорость самолета
             {
                 currentX += 10; // Продвигаемся на 10 км
                                 
@@ -38,12 +38,16 @@ namespace EpamFlyAbleInterface
                     }
                 }
 
-                Console.WriteLine($"Самолет: скорость: {planeSpeed}");
-                Console.WriteLine($"Самолет: Временные координаты X:{currentX}, Y:{currentY}, Z:{currentZ}");
-                GetFlyTime(currentX, currentY, currentZ);
+                if ((currentX % 100) == 0) //отчитываемся каждые 100 км
+                {
+                    Console.WriteLine($"Самолет: скорость: {planeSpeed}");
+                    Console.WriteLine($"Самолет: Временные координаты X:{currentX}, Y:{currentY}, Z:{currentZ}");
+                    GetFlyTime(currentX, currentY, currentZ);
+                }
             }
 
-            Console.WriteLine($"Самолет: конечные координаты  X:{currentX}, Y:{currentY}, Z:{currentZ}"); 
+            Console.WriteLine($"Самолет: скорость: {planeSpeed}");
+            Console.WriteLine($"Самолет: конечные координаты  X:{currentX}, Y:{currentY}, Z:{currentZ}");
         }
 
         public void GetFlyTime(uint xCorPlane, uint yCorPlane, uint zCorPlane)
