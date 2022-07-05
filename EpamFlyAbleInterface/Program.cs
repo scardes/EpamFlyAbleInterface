@@ -6,19 +6,46 @@ namespace EpamFlyAbleInterface
     {
         static void Main(string[] args)
         {
+            uint cleanCordX;
+            uint cleanCordY;
+            uint cleanCordZ;
+
             Console.WriteLine("Программа по определению 3D-местоположения летящего объекта:\n");
 
+            // Ask the user to type the (Координата Х) number.
             Console.Write("Введите расстояние для полета в км (Координата Х): ");
-            uint cordinateXGlobal = Convert.ToUInt32(Console.ReadLine());
+            string cordInputX = Console.ReadLine();
+
+            while (!uint.TryParse(cordInputX, out cleanCordX))
+            {
+                Console.Write("Please enter расстояние для полета в км (Координата Х): ");
+                cordInputX = Console.ReadLine();
+            }
+
+            // Ask the user to type the (Координата Y) number.
             Console.Write("Введите высоту полета в км (Координата Y): ");
-            uint cordinateYGlobal = Convert.ToUInt32(Console.ReadLine());
-            Console.Write("Введите отклонение в право в км (Координата Z): ");
-            uint cordinateZGlobal = Convert.ToUInt32(Console.ReadLine());
+            string cordInputY = Console.ReadLine();
+
+            while (!uint.TryParse(cordInputY, out cleanCordY))
+            {
+                Console.Write("Please enter расстояние для полета в км (Координата Y): ");
+                cordInputY = Console.ReadLine();
+            }
+            // Ask the user to type the (Координата Z) number.
+            Console.Write("Введите отклонение в право в км(Координата Z): ");
+            string cordInputZ = Console.ReadLine();
+
+            while (!uint.TryParse(cordInputZ, out cleanCordZ))
+            {
+                Console.Write("Введите отклонение в право в км(Координата Z): ");
+                cordInputZ = Console.ReadLine();
+            }
+            
 
             void FlyAction(IFlyable fly) // Обращение к интерфейсу
             {
-                fly.FlyTo(cordinateXGlobal, cordinateYGlobal, cordinateZGlobal); //Передаем координаты новой точки
-                fly.GetFlyTime(cordinateXGlobal, cordinateYGlobal, cordinateZGlobal); //Передаем координаты новой точки
+                fly.FlyTo(cleanCordX, cleanCordY, cleanCordZ); //Передаем координаты новой точки
+                fly.GetFlyTime(cleanCordX, cleanCordY, cleanCordZ); //Передаем координаты новой точки
             }
 
             Bird bird = new Bird();
