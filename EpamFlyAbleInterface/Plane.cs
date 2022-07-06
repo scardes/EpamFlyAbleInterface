@@ -41,13 +41,13 @@ namespace EpamFlyAbleInterface
                 //If конечные координаты не кратны 10 и мы немного перелетели с шагом 10
                 if (currentX > xCorPlane)
                 {
+                    
                     if (planeSpeed != 800)
                     {
-                        planeSpeed = (planeSpeed - 10) + (xCorPlane - currentX);
+                        planeSpeed = (planeSpeed - 10) + (currentX - xCorPlane);
                     }
 
                     currentX = xCorPlane;
-
                 }
 
                 if ((currentX % 100) == 0) //отчитываемся каждые 100 км

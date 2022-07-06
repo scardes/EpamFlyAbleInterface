@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
+/// <summary>
+/// 
+/// </summary>
 namespace EpamFlyAbleInterface
 {
     class Drone : IFlyable
@@ -58,8 +61,8 @@ namespace EpamFlyAbleInterface
                 // Перелет шага
                 if (currentX > xCorDrone)
                 {
-                    //Отнимаем прибавленные 11 минут и высчитываем заново (опледеляем сколько еще км надо пролететь и умнажаем на расстояние которое пролетаем за 1км
-                    flyMinut = (flyMinut - 11) + ((xCorDrone - (currentX-5)) * (60 / droneSpeed)); // 10+1 минута (10 полета и 1 минута зависания)
+                    //Отнимаем прибавленные 11 минут + высчитываем заново (определяем сколько еще км надо пролететь и умнажаем на расстояние которое пролетаем за 1км
+                    flyMinut = (flyMinut - 11) + ((xCorDrone - (currentX-5)) * (60 / droneSpeed)); 
 
                     if (flyMinut <= 0) // Переводим минуты в часы
                     {
