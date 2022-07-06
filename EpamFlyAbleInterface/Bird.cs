@@ -63,7 +63,7 @@ namespace EpamFlyAbleInterface
             Console.WriteLine($"Птичка: Длительность полета: {flyHour} часов и {flyMinut} минут\n");
         }
 
-        uint FlyUp(uint yCorBird) // Набор высоты. Птичка набирает высоту по 1 км в час. И не может поднятся выше 8 км 
+        private uint FlyUp(uint yCorBird) // Набор высоты. Птичка набирает высоту по 1 км в час. И не может поднятся выше 8 км 
         {
             if (currentY >= 8)
             {

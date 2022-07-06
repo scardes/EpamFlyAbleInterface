@@ -18,7 +18,7 @@ namespace EpamFlyAbleInterface
             Console.WriteLine($" \n Вылетает дрон. Скорость дрона {droneSpeed} км/ч. Каждые 10 минут пролетает {droneSpeed * 10 / 60} км.");
             Console.WriteLine(" Дрон каждые 10 минут, зависает на 1 минуту (двигаясь по координате Х) \n");
 
-            while (xCorDrone > (currentX)) // передвигаемся по координате Х 
+            while (xCorDrone > currentX) // передвигаемся по координате Х 
             {
                 currentX += (droneSpeed * 10 / 60); // Проходим это расстояние по координате Х: за 10 минут
 
@@ -55,15 +55,32 @@ namespace EpamFlyAbleInterface
                     break;
                 }
 
+                // Перелет шага
+                if (currentX > xCorDrone)
+                {
+                    //Отнимаем прибавленные 11 минут и высчитываем заново (опледеляем сколько еще км надо пролететь и умнажаем на расстояние которое пролетаем за 1км
+                    flyMinut = (flyMinut - 11) + ((xCorDrone - (currentX-5)) * (60 / droneSpeed)); // 10+1 минута (10 полета и 1 минута зависания)
+
+                    if (flyMinut <= 0) // Переводим минуты в часы
+                    {
+                        flyMinut += 60;
+                        flyHour--;
+                    }
+
+                    currentX = xCorDrone;
+                }
+
+
                 if ((currentX % 100) == 0) //отчитываемся каждые 100 км
                 {
+                    
                     Console.WriteLine($"Дрон: Временные координаты X:{currentX}, Y:{currentY}, Z:{currentZ}");
                     Console.WriteLine($"Дрон: Длительность полета: {flyHour} часов и {flyMinut} минут\n");
                 } 
 
             }
 
-            Console.WriteLine($"Дрон: конечные координаты  X:{currentX}, Y:{currentY}, Z:{currentZ}");
+            Console.WriteLine($"Дрон: Конечные координаты  X:{currentX}, Y:{currentY}, Z:{currentZ}");
             Console.WriteLine($"Дрон: Длительность полета: {flyHour} часов и {flyMinut} минут\n");
         }
 

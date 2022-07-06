@@ -15,7 +15,7 @@ namespace EpamFlyAbleInterface
         {
             Console.WriteLine($"\n Вылетает самолет. Начальная скорость самолета {planeSpeed} км/ч + 10 км/ч каждые 10 км. Максимальная скорость: 800 км/ч \n");
 
-            while (xCorPlane > (currentX)) //Каждый 10 км отчитываемся где находимся и какая скорость самолета
+            while (xCorPlane > currentX) //Каждый 10 км отчитываемся где находимся и какая скорость самолета
             {
                 currentX += 10; // Продвигаемся на 10 км
                                 
@@ -36,6 +36,18 @@ namespace EpamFlyAbleInterface
                     {
                         currentZ = zCorPlane;
                     }
+                }
+
+                //If конечные координаты не кратны 10 и мы немного перелетели с шагом 10
+                if (currentX > xCorPlane)
+                {
+                    if (planeSpeed != 800)
+                    {
+                        planeSpeed = (planeSpeed - 10) + (xCorPlane - currentX);
+                    }
+
+                    currentX = xCorPlane;
+
                 }
 
                 if ((currentX % 100) == 0) //отчитываемся каждые 100 км
