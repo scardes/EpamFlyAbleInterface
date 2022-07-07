@@ -3,7 +3,12 @@ using System.Collections.Generic;
 using System.Text;
 
 /// <summary>
-/// 
+/// Class Drone:
+/// 1. Drone speed is 30 km/h
+/// 2. Drone every 10 minut, hangs out to the 1 minute.
+/// 3. Drone distance limit = 1000km
+/// 4. Takeoff speed increase is +2 km/h every 11 minutes
+/// 5. Turn right speed increase +3 km/h every 11 minutes
 /// </summary>
 namespace EpamFlyAbleInterface
 {
@@ -18,22 +23,28 @@ namespace EpamFlyAbleInterface
 
         public void FlyTo(uint xCorDrone, uint yCorDrone, uint zCorDrone)
         {
-            Console.WriteLine($" \n Вылетает дрон. Скорость дрона {droneSpeed} км/ч. Каждые 10 минут пролетает {droneSpeed * 10 / 60} км.");
-            Console.WriteLine(" Дрон каждые 10 минут, зависает на 1 минуту (двигаясь по координате Х) \n");
+            Console.WriteLine($"\tDrone start to fly. Drone speed = {droneSpeed} km/h. Each 10 minut drone move to {droneSpeed * 10 / 60} km.");
+            Console.WriteLine("\tTakeoff speed increase is +2 km/h and turn right +3 km/h every 11 minutes.");
+            Console.WriteLine("\tDrone every 10 minut, hangs out to the 1 minute. \n");
 
-            while (xCorDrone > currentX) // передвигаемся по координате Х 
+            //One iteration = 10(+1) minute and 5km of distanse 
+            while (xCorDrone > currentX) 
             {
-                currentX += (droneSpeed * 10 / 60); // Проходим это расстояние по координате Х: за 10 минут
+                // Distanse (Coordinate X) 
+                currentX += (droneSpeed * 10 / 60);
 
-                flyMinut += 11; // 10+1 минута (10 полета и 1 минута зависания)
+                //Add minutes each iteration
+                flyMinut += 11;
 
-                if (flyMinut >= 60) // Переводим минуты в часы
+                // Turn the minutes into hours
+                if (flyMinut >= 60) 
                 {
                     flyMinut -= 60;
                     flyHour++;
                 }
 
-                if (yCorDrone > currentY) // Полет в вверх: Y координата. Вправо уходим на 2 км (координата Y) на каждые 10 минут по координате Х
+                // Fly UP (Coordinate Y) increase is +1 km/h each 11 minutes (5 km) 
+                if (yCorDrone > currentY) 
                 {
                     currentY += 2;
                     if (currentY > yCorDrone)
@@ -42,7 +53,8 @@ namespace EpamFlyAbleInterface
                     }
                 }
 
-                if (zCorDrone > currentZ) // Полет в право: Z координата. Вправо уходим на 3 км (координата Z) на каждые 10 минут по координате Х
+                // Turn right (Coordinate Z) increase is +3 km/h each 11 minutes (5 km)
+                if (zCorDrone > currentZ) 
                 {
                     currentZ += 3;
                     if (currentZ > zCorDrone)
@@ -51,20 +63,22 @@ namespace EpamFlyAbleInterface
                     }
                 }
 
+                // Drone distance limit = 1000km
                 if (currentX >= 1000)
                 {
                     currentX = 1000;
-                    Console.WriteLine("Дрон больше 1000км не пролетит\n");
+                    Console.WriteLine("Drone distance limit = 1000km\n");
                     break;
                 }
 
-                // Перелет шага
+                //If the final coordinates are not multiple of 5km and we get a overflight
                 if (currentX > xCorDrone)
                 {
-                    //Отнимаем прибавленные 11 минут + высчитываем заново (определяем сколько еще км надо пролететь и умнажаем на расстояние которое пролетаем за 1км
-                    flyMinut = (flyMinut - 11) + ((xCorDrone - (currentX-5)) * (60 / droneSpeed)); 
+                    //Take away 11 minutes + Then found distance to fly and multiply to a period of time drone over a distance by 1km
+                    flyMinut = (flyMinut - 11) + ((xCorDrone - (currentX-5)) * (60 / droneSpeed));
 
-                    if (flyMinut <= 0) // Переводим минуты в часы
+                    // Turn the hours into minutes
+                    if (flyMinut <= 0) 
                     {
                         flyMinut += 60;
                         flyHour--;
@@ -73,18 +87,17 @@ namespace EpamFlyAbleInterface
                     currentX = xCorDrone;
                 }
 
-
-                if ((currentX % 100) == 0) //отчитываемся каждые 100 км
+                // Show temporary coordinats of plane, every 100 km. 
+                if ((currentX % 100) == 0) 
                 {
-                    
-                    Console.WriteLine($"Дрон: Временные координаты X:{currentX}, Y:{currentY}, Z:{currentZ}");
-                    Console.WriteLine($"Дрон: Длительность полета: {flyHour} часов и {flyMinut} минут\n");
+                    Console.WriteLine($"Drone: Temporary coordinats X:{currentX}, Y:{currentY}, Z:{currentZ}");
+                    Console.WriteLine($"Drone: flight time: {flyHour} hours and {flyMinut} minute\n");
                 } 
 
             }
 
-            Console.WriteLine($"Дрон: Конечные координаты  X:{currentX}, Y:{currentY}, Z:{currentZ}");
-            Console.WriteLine($"Дрон: Длительность полета: {flyHour} часов и {flyMinut} минут\n");
+            Console.WriteLine($"Drone end of fly. Coordinats X:{currentX}, Y:{currentY}, Z:{currentZ}");
+            Console.WriteLine($"Drone: flight time: {flyHour} hours and {flyMinut} minute\n");
         }
 
         public void GetFlyTime(uint xCorDrone, uint yCorDrone, uint zCorDrone)

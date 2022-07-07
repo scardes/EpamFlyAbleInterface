@@ -2,34 +2,49 @@
 using System.Collections.Generic;
 using System.Text;
 
+/// <summary>
+/// Class Plane:
+/// 1. Plane start with speed = 200 km/h
+/// 2. Every 10 km  increases the speed to 10 km/h
+/// 3. Plane MAX speed is 800 km/h
+/// 4. Takeoff speed increase is +1 km/h each 10 km of distanse 
+/// 5. Turn right increase is +3 km/h each 10 km of distanse
+/// </summary>
 namespace EpamFlyAbleInterface
 {
     class Plane : IFlyable
     {
-        uint currentX = 0; // Начальные координаты (0,0,0)
+        uint currentX = 0;
         uint currentY = 0;
         uint currentZ = 0;
-        uint planeSpeed = 200; // Начальная скорость самолета
+        uint planeSpeed = 200;
 
+        // Get coordinates of the final point
         public void FlyTo(uint xCorPlane, uint yCorPlane, uint zCorPlane)
         {
-            Console.WriteLine($"\n Вылетает самолет. Начальная скорость самолета {planeSpeed} км/ч + 10 км/ч каждые 10 км. Максимальная скорость: 800 км/ч \n");
+            Console.WriteLine($"\tPlane start to fly. Start speed is {planeSpeed}km/h +10km/h (Max=800km/h) every 10 km.");
+            Console.WriteLine("\tTakeoff speed increase is +1 km/h and turn right +3 km/h every 10 km. \n");
 
-            while (xCorPlane > currentX) //Каждый 10 км отчитываемся где находимся и какая скорость самолета
+            //One iteration = 10 km 
+            while (xCorPlane > currentX) 
             {
-                currentX += 10; // Продвигаемся на 10 км
-                                
-                if (planeSpeed < 800) // Ограничим максимальную скорость самолета 800 км/ч (это пассажирский самолет)
+                // Distanse (Coordinate X)
+                currentX += 10;
+
+                // Increase plane speed with speed limit = 800 km/h (passenger aircraft)
+                if (planeSpeed < 800) 
                 {
-                    planeSpeed += 10; //Увеличиваем скорость на 10км/ч каждые 10 км пути 
+                    planeSpeed += 10;
                 }
 
-                if (yCorPlane > currentY) // Полет в вверх +1 км (координата Y) на каждые 10 км по координате Х
+                // Fly UP (Coordinate Y) increase is +1 km/h each 10 km by (Coordinate X)
+                if (yCorPlane > currentY) 
                 {
                     currentY++;
                 }
 
-                if (zCorPlane > currentZ) // Полет в право: Z координата. Вправо уходим на 3 км (координата Z) на каждые 10 км по координате Х
+                // Turn right (Coordinate Z) increase is +3 km/h each 10 km by (Coordinate X)
+                if (zCorPlane > currentZ) 
                 {
                     currentZ += 3;
                     if (currentZ > zCorPlane)
@@ -38,7 +53,7 @@ namespace EpamFlyAbleInterface
                     }
                 }
 
-                //If конечные координаты не кратны 10 и мы немного перелетели с шагом 10
+                //If the final coordinates are not multiple of 10km and we get a overflight
                 if (currentX > xCorPlane)
                 {
                     
@@ -50,24 +65,26 @@ namespace EpamFlyAbleInterface
                     currentX = xCorPlane;
                 }
 
-                if ((currentX % 100) == 0) //отчитываемся каждые 100 км
+                // Show temporary coordinats of plane, every 100 km. 
+                if ((currentX % 100) == 0)
                 {
-                    Console.WriteLine($"Самолет: скорость: {planeSpeed}");
-                    Console.WriteLine($"Самолет: Временные координаты X:{currentX}, Y:{currentY}, Z:{currentZ}");
+                    Console.WriteLine($"Plane speed is: {planeSpeed}");
+                    Console.WriteLine($"Plane: Temporary coordinats X:{currentX}, Y:{currentY}, Z:{currentZ}");
                     GetFlyTime(currentX, currentY, currentZ);
                 }
             }
 
-            Console.WriteLine($"Самолет: скорость: {planeSpeed}");
-            Console.WriteLine($"Самолет: конечные координаты  X:{currentX}, Y:{currentY}, Z:{currentZ}");
+            Console.WriteLine($"Plane speed is:  {planeSpeed}");
+            Console.WriteLine($"Plane End Fly. Coordinats X:{currentX}, Y:{currentY}, Z:{currentZ}");
         }
 
+        // Get Fly time. FlyMinut has rounding
         public void GetFlyTime(uint xCorPlane, uint yCorPlane, uint zCorPlane)
         {
-            uint flyHour = xCorPlane / planeSpeed; // получаем часы
-            double flyMinut = ((double)(xCorPlane % planeSpeed) / (double)planeSpeed) * 60; //получаем минуты
-            flyMinut = Math.Round(flyMinut, 1); //округляем на те случае когда много чисел после запятой (минуты)
-            Console.WriteLine($"Самолет: Длительность полета: {flyHour} часов и {flyMinut} минут\n");
+            uint flyHour = xCorPlane / planeSpeed; 
+            double flyMinut = ((double)(xCorPlane % planeSpeed) / (double)planeSpeed) * 60; 
+            flyMinut = Math.Round(flyMinut, 1); 
+            Console.WriteLine($"Plane: flight time: {flyHour} hours and {flyMinut} minute\n");
         }
 
     }

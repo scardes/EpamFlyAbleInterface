@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using System.Text;
 
 /// <summary>
-/// Class bird: 1. Bird has a random speed (1 -20) km/h 2. 
+/// Class bird: 
+/// 1. Bird has a random speed (1 - 20) km/h 
+/// 2. Takeoff speed is +1 km/h
+/// 3. Limit of hight is 8 km 
+/// 4. Turn right speed is +2 km/h
 /// </summary>
 namespace EpamFlyAbleInterface
 {
-    class Bird : IFlyable // За основу взята координата Х. До которой мы всегда добираемся. А вот высота и поворот на право - не гарантируемы
+    class Bird : IFlyable 
     {
-        uint currentX = 0; // Начальные координаты (0,0,0)
+        uint currentX = 0;
         uint currentY = 0; 
         uint currentZ = 0;
         int hundreds = 100;
@@ -22,22 +26,28 @@ namespace EpamFlyAbleInterface
             return value;
         }
 
-        private uint birdSpeed = GetRandom(); 
+        private uint birdSpeed = GetRandom();
 
-        public void FlyTo(uint xCorBird, uint yCorBird, uint zCorBird) //Получаем координаты новой точки. Куда нам следует лететь
+        // Get coordinates of the final point
+        public void FlyTo(uint xCorBird, uint yCorBird, uint zCorBird) 
         {
-            Console.WriteLine($"\n\tBird start to fly. Скорость Птички {birdSpeed} км/ч, Набор высоты +1 км/ч (Максимум 8 КМ), вправо +2 км/ч \n");
+            Console.WriteLine($"\n\tBird start to fly. Bird speed = {birdSpeed} km/h, takeoff speed is +1 km/h");
+            Console.WriteLine("\tBird have hight limit =8 km, Turn right speed is +2 km/h \n");
 
-            while (xCorBird > (birdSpeed + currentX)) //Каждый час отчитываемся где находимся
+            //One iteration = 1 hour
+            while (xCorBird > (birdSpeed + currentX)) 
             {
-                currentX += birdSpeed; // Полет в длину: Х координата 
-                
-                if (yCorBird > currentY) // Полет в высоту: Y координата
+                // Distanse (Coordinate X)
+                currentX += birdSpeed;
+
+                // Fly UP (Coordinate Y)
+                if (yCorBird > currentY)
                 {
                     FlyUp(currentY);
                 }
 
-                if (zCorBird > currentZ) // Полет в право: Z координата. Вправо уходим со скоростью макс 2 км/ч
+                // Turn right (Coordinate Z) speed is +2 km/h
+                if (zCorBird > currentZ) 
                 {
                     currentZ += 2;
                     if (currentZ > zCorBird)
@@ -46,28 +56,22 @@ namespace EpamFlyAbleInterface
                     }
                 }
 
-                if ((currentX) >= hundreds) //отчитываемся каждые 100 км
+                // Show temporary coordinats of bird fly, every (more than) 100 km. 
+                if ((currentX) >= hundreds)
                 {
-                    Console.WriteLine($"Птичка: Временные координаты X:{currentX}, Y:{currentY}, Z:{currentZ}");
+                    Console.WriteLine($"Bird: Temporary coordinats X:{currentX}, Y:{currentY}, Z:{currentZ}");
                     GetFlyTime(currentX, currentY, currentZ);
-                    hundreds += 100; // Счетчик
+                    hundreds += 100; 
                 }
 
             }
 
             currentX = xCorBird;
-            Console.WriteLine($"Птичка: конечные координаты X:{currentX}, Y:{currentY}, Z:{currentZ}"); //xCorBird - по длине всегда долетам
+            Console.WriteLine($"Bird End Fly: Coordinats X:{currentX}, Y:{currentY}, Z:{currentZ}"); 
         }
 
-        public void GetFlyTime(uint xCorBird, uint yCorBird, uint zCorBird) // Высчитываем время полета
-        {
-            uint flyHour = xCorBird / birdSpeed; // получаем часы
-            double flyMinut = ((double)(xCorBird % birdSpeed) / (double)birdSpeed) * 60; //получаем минуты
-            flyMinut = Math.Round(flyMinut, 1); //округляем на те случае когда много чисел после запятой (минуты)
-            Console.WriteLine($"Птичка: Длительность полета: {flyHour} часов и {flyMinut} минут\n");
-        }
-
-        private uint FlyUp(uint yCorBird) // Набор высоты. Птичка набирает высоту по 1 км в час. И не может поднятся выше 8 км 
+        // Bird take-off. Speed +1 km/h and bird have limit of hight is 8 km 
+        private uint FlyUp(uint yCorBird)
         {
             if (currentY >= 8)
             {
@@ -75,5 +79,15 @@ namespace EpamFlyAbleInterface
             }
             return currentY++;
         }
+
+        // Get Fly time. FlyMinut has rounding
+        public void GetFlyTime(uint xCorBird, uint yCorBird, uint zCorBird) 
+        {
+            uint flyHour = xCorBird / birdSpeed; 
+            double flyMinut = ((double)(xCorBird % birdSpeed) / (double)birdSpeed) * 60; 
+            flyMinut = Math.Round(flyMinut, 1); 
+            Console.WriteLine($"Bird:  flight time: {flyHour} hours and {flyMinut} minute\n");
+        }
+
     }
 }
