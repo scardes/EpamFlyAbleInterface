@@ -14,10 +14,10 @@ namespace EpamFlyAbleInterface
 {
     class Drone : IFlyable
     {
-        uint currentX = 0; // Начальные координаты (0,0,0)
+        uint currentX = 0; // Start coordinates (0,0,0)
         uint currentY = 0;
         uint currentZ = 0;
-        uint droneSpeed = 30; // Скорость дрона
+        uint droneSpeed = 30; // Drone Speed
         double flyMinut = 0;
         uint flyHour = 0;
 
@@ -93,13 +93,13 @@ namespace EpamFlyAbleInterface
                     Console.WriteLine($"Drone: Temporary coordinats X:{currentX}, Y:{currentY}, Z:{currentZ}");
                     Console.WriteLine($"Drone: flight time: {flyHour} hours and {flyMinut} minute\n");
                 } 
-
             }
 
             Console.WriteLine($"Drone end of fly. Coordinats X:{currentX}, Y:{currentY}, Z:{currentZ}");
             Console.WriteLine($"Drone: flight time: {flyHour} hours and {flyMinut} minute\n");
         }
 
+        // We don't use this method. But we need it because we use IFlyable Interface which need this method
         public void GetFlyTime(uint xCorDrone, uint yCorDrone, uint zCorDrone)
         {
         }
