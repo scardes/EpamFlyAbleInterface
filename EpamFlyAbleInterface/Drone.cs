@@ -12,7 +12,7 @@ using System.Text;
 /// </summary>
 namespace EpamFlyAbleInterface
 {
-    class Drone : IFlyable
+    public class Drone : IFlyable
     {
         uint currentX = 0; // Start coordinates (0,0,0)
         uint currentY = 0;
@@ -91,17 +91,16 @@ namespace EpamFlyAbleInterface
                 if ((currentX % 100) == 0) 
                 {
                     Console.WriteLine($"Drone: Temporary coordinats X:{currentX}, Y:{currentY}, Z:{currentZ}");
-                    Console.WriteLine($"Drone: flight time: {flyHour} hours and {flyMinut} minute\n");
+                    GetFlyTime(currentX, currentY, currentZ);
                 } 
             }
-
             Console.WriteLine($"Drone end of fly. Coordinats X:{currentX}, Y:{currentY}, Z:{currentZ}");
-            Console.WriteLine($"Drone: flight time: {flyHour} hours and {flyMinut} minute\n");
         }
 
-        // We don't use this method. But we need it because we use IFlyable Interface which need this method
+        // We need this method, because we use IFlyable Interface which need all his methods in inheritanced class
         public void GetFlyTime(uint xCorDrone, uint yCorDrone, uint zCorDrone)
         {
+            Console.WriteLine($"Drone: flight time: {flyHour} hours and {flyMinut} minute\n");
         }
         
     }

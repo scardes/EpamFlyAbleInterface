@@ -11,7 +11,7 @@ using System.Text;
 /// </summary>
 namespace EpamFlyAbleInterface
 {
-    class Bird : IFlyable 
+    public class Bird : IFlyable 
     {
         uint currentX = 0;
         uint currentY = 0; 
@@ -19,7 +19,7 @@ namespace EpamFlyAbleInterface
         int hundreds = 100;
 
         //Get random number from 1 to 20 and this is our bird (km/h) speed = birdSpeed
-        static uint GetRandom()
+        private static uint GetRandom()
         {
             Random rnd = new Random();
             uint value = (uint)rnd.Next(1, 20); 

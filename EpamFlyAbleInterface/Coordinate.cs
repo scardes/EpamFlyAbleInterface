@@ -7,7 +7,7 @@ namespace EpamFlyAbleInterface
     /// <summary>
     /// Struct for transmit coordinates of new point (by Interface FlyAction) to classes
     /// </summary>
-    struct Coordinate
+    public struct Coordinate
     {
         public uint cleanCordX;
         public uint cleanCordY;

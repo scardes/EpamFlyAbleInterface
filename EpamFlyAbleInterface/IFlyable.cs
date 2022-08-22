@@ -9,7 +9,7 @@ using System.Text;
 /// </summary>
 namespace EpamFlyAbleInterface
 {
-    interface IFlyable
+    public interface IFlyable
     {
         void FlyTo(uint xCorInt, uint yCorInt, uint zCorInt);
 

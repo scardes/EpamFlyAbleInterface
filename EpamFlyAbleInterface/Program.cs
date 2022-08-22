@@ -6,9 +6,9 @@
 /// </summary>
 namespace EpamFlyAbleInterface
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             Coordinate coordinate = new Coordinate();
 
@@ -56,7 +56,6 @@ namespace EpamFlyAbleInterface
             // Frendly exit
             Console.WriteLine("\nProgram exit");
             Console.ReadLine(); 
-
         }
     }
 }

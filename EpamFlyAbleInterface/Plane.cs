@@ -12,7 +12,7 @@ using System.Text;
 /// </summary>
 namespace EpamFlyAbleInterface
 {
-    class Plane : IFlyable
+    public class Plane : IFlyable
     {
         uint currentX = 0;
         uint currentY = 0;
